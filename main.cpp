@@ -34,7 +34,6 @@ auto check_temporary_green_channel() {
     temporary_green_channel > 255 ? green_channel = 255 : green_channel = temporary_green_channel;
 }
 
-
 auto check_temporary_blue_channel() {
     temporary_blue_channel > 255 ? blue_channel = 255 : blue_channel = temporary_blue_channel;
 }
@@ -53,20 +52,29 @@ auto blue_filter() {
 
 auto sepia_filter() {
     temporary_red_channel =
-                        0.393 * red_channel +
-                        0.769 * green_channel +
-                        0.189 * blue_channel;
+                            0.393 * red_channel +
+                            0.769 * green_channel +
+                            0.189 * blue_channel;
 
     temporary_green_channel = 
-                        0.349 * red_channel +
-                        0.686 * green_channel +
-                        0.168 * blue_channel;
+                                0.349 * red_channel +
+                                0.686 * green_channel +
+                                0.168 * blue_channel;
 
     temporary_blue_channel =
-                        0.272 * red_channel +
-                        0.534 * green_channel +
-                        0.131 * blue_channel;
+                            0.272 * red_channel +
+                            0.534 * green_channel +
+                            0.131 * blue_channel;
 
+    check_all_temporary_channels();
+}
+
+auto grayscale_filter() {
+    temporary_red_channel = temporary_green_channel = temporary_blue_channel =
+                                                                                0.299 * red_channel +
+                                                                                0.587 * green_channel +
+                                                                                0.114 * blue_channel;
+    
     check_all_temporary_channels();
 }
 
@@ -97,6 +105,8 @@ int main() {
         red_stream >> red_channel;
         green_stream >> green_channel;
         blue_stream >> blue_channel;
+
+        blue_filter();
 
         new_image << red_channel << " " << green_channel << " " << blue_channel << std::endl;
     }

@@ -21,6 +21,33 @@ int
     green_channel,
     blue_channel;
 
+auto blue_filter() {
+    auto temp_blue_channel = blue_channel + 50;
+
+    temp_blue_channel > 255 ? blue_channel = 255 : blue_channel = temp_blue_channel;
+}
+
+auto sepia_filter() {
+    auto temp_red_channel =
+                                    0.393 * red_channel +
+                                    0.769 * green_channel +
+                                    0.189 * blue_channel;
+
+    auto temp_green_channel = 
+                                        0.349 * red_channel +
+                                        0.686 * green_channel +
+                                        0.168 * blue_channel;
+
+    auto temp_blue_channel =
+                                    0.272 * red_channel +
+                                    0.534 * green_channel +
+                                    0.131 * blue_channel;
+
+    temp_red_channel > 255 ? red_channel = 255 : red_channel = temp_red_channel;
+    temp_green_channel > 255 ? green_channel = 255 : green_channel = temp_green_channel;
+    temp_blue_channel > 255 ? blue_channel = 255 : blue_channel = temp_blue_channel;
+}
+
 int main() {
     std::ifstream image;
     std::ofstream new_image;

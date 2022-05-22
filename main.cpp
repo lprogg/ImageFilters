@@ -21,31 +21,53 @@ int
     green_channel,
     blue_channel;
 
-auto blue_filter() {
-    auto temp_blue_channel = blue_channel + 50;
+double
+        temporary_red_channel,
+        temporary_green_channel,
+        temporary_blue_channel;
 
-    temp_blue_channel > 255 ? blue_channel = 255 : blue_channel = temp_blue_channel;
+auto check_temporary_red_channel() {
+    temporary_red_channel > 255 ? red_channel = 255 : red_channel = temporary_red_channel;
+}
+
+auto check_temporary_green_channel() {
+    temporary_green_channel > 255 ? green_channel = 255 : green_channel = temporary_green_channel;
+}
+
+
+auto check_temporary_blue_channel() {
+    temporary_blue_channel > 255 ? blue_channel = 255 : blue_channel = temporary_blue_channel;
+}
+
+auto check_all_temporary_channels() {
+    check_temporary_red_channel();
+    check_temporary_green_channel();
+    check_temporary_blue_channel();
+}
+
+auto blue_filter() {
+    temporary_blue_channel = blue_channel + 50;
+
+    check_temporary_blue_channel();
 }
 
 auto sepia_filter() {
-    auto temp_red_channel =
-                                    0.393 * red_channel +
-                                    0.769 * green_channel +
-                                    0.189 * blue_channel;
+    temporary_red_channel =
+                        0.393 * red_channel +
+                        0.769 * green_channel +
+                        0.189 * blue_channel;
 
-    auto temp_green_channel = 
-                                        0.349 * red_channel +
-                                        0.686 * green_channel +
-                                        0.168 * blue_channel;
+    temporary_green_channel = 
+                        0.349 * red_channel +
+                        0.686 * green_channel +
+                        0.168 * blue_channel;
 
-    auto temp_blue_channel =
-                                    0.272 * red_channel +
-                                    0.534 * green_channel +
-                                    0.131 * blue_channel;
+    temporary_blue_channel =
+                        0.272 * red_channel +
+                        0.534 * green_channel +
+                        0.131 * blue_channel;
 
-    temp_red_channel > 255 ? red_channel = 255 : red_channel = temp_red_channel;
-    temp_green_channel > 255 ? green_channel = 255 : green_channel = temp_green_channel;
-    temp_blue_channel > 255 ? blue_channel = 255 : blue_channel = temp_blue_channel;
+    check_all_temporary_channels();
 }
 
 int main() {
